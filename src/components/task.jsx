@@ -5,11 +5,15 @@ import { CheckIcon } from '@radix-ui/react-icons'
 import { Trash } from 'phosphor-react'
 import { useState } from 'react'
 
-export function Task({ content, onDeleteTask, isCompleted }) {
+export function Task({ id, isCompleted, content, onDeleteTask }) {
   const [checked, setChecked] = useState(false)
 
   function handleDeleteTask() {
     onDeleteTask(content)
+  }
+
+  function handleCheckedeTask() {
+    console.log(checked)
   }
 
   return (

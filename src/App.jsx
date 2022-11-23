@@ -9,26 +9,20 @@ import { PlusCircle } from 'phosphor-react'
 import styles from './app.module.css'
 import './global.css'
 
-const task = [
-  {
-    id: 1,
-    title: 'Fazer café',
-    isCompleted: false //Uma informação para saber se a task está ou não concluida
-  },
-  {
-    id: 2,
-    title: 'Beber agua',
-    isCompleted: true
-  }
-]
-
 export function App() {
   const [tasks, setTask] = useState([])
   const [newTaskText, setNewTaskText] = useState('')
 
   function handleCreatNewTask() {
     event.preventDefault()
-    setTask([...tasks, newTaskText])
+
+    setTask([
+      ...tasks,
+      {
+        id: uuidv4(),
+        value: newTaskText
+      }
+    ])
 
     setNewTaskText('')
   }
@@ -90,7 +84,13 @@ export function App() {
         </main>
         <div>
           {tasks.map(task => {
-            return <Task content={task} onDeleteTask={deleteTask} />
+            return (
+              <Task
+                key={task.id}
+                content={task.value}
+                onDeleteTask={deleteTask}
+              />
+            )
           })}
           {tasks.length === 0 && <InfoTask />}
         </div>
