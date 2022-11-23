@@ -33,7 +33,7 @@ export function App() {
 
   function deleteTask(taskToDelete) {
     const tasksWhithoutDeleteOne = tasks.filter(task => {
-      return task != taskToDelete
+      return task.id != taskToDelete
     })
 
     setTask(tasksWhithoutDeleteOne)
@@ -88,7 +88,9 @@ export function App() {
               <Task
                 key={task.id}
                 content={task.value}
+                id={task.id}
                 onDeleteTask={deleteTask}
+                isCompleted={task.inChecked}
               />
             )
           })}

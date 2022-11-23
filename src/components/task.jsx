@@ -9,11 +9,7 @@ export function Task({ id, isCompleted, content, onDeleteTask }) {
   const [checked, setChecked] = useState(false)
 
   function handleDeleteTask() {
-    onDeleteTask(content)
-  }
-
-  function handleCheckedeTask() {
-    console.log(checked)
+    onDeleteTask(id)
   }
 
   return (
