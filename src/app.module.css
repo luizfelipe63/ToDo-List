@@ -1,0 +1,83 @@
+.wapper{
+  max-width: 46rem;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+  margin-top: calc(0px - 1.5rem );
+}
+
+.container input{
+  background: var(--gray-500);
+  color: var(--gray-300);
+  width: 100%;
+  border: 0;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.container button{
+  background: var(--blue-dark);
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--white);
+  border: 0;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+
+  transition: background 0.1s;
+}
+
+
+.container button:hover{
+  background: var(--blue);
+}
+
+.container button[type=submit]:not(:disabled):hover{
+  background: var(--blue);
+}
+
+.container button[type=submit]:disabled{
+  opacity: .7;
+  cursor: not-allowed;
+}
+
+
+.counter{
+  margin: 4rem 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.counter strong{
+  font-size: 0.875rem;
+}
+
+.blue{
+  color: var(--blue);
+} 
+
+.purple{
+  color: var(--purple);
+}
+
+.counter strong span{
+  background: var(--gray-400);
+  color: var(--white);
+  padding: 0.125rem .5rem;
+  font-size: .75rem;
+  border-radius:999px;
+
+  margin-left: .5rem;
+}
+
