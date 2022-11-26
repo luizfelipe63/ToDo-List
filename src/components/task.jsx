@@ -12,11 +12,15 @@ export function Task({ id, isCompleted, content, onDeleteTask }) {
     onDeleteTask(id)
   }
 
+  function handleCheckedTask() {
+    isCompleted(checked)
+  }
+
   return (
     <div className={styles.task}>
       <div className={styles.taskBox}>
         <Checkbox.Root
-          checked={checked}
+          onClick={handleCheckedTask}
           onCheckedChange={setChecked}
           className={styles.CheckboxRoot}
         >

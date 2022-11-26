@@ -20,7 +20,8 @@ export function App() {
       ...tasks,
       {
         id: uuidv4(),
-        value: newTaskText
+        value: newTaskText,
+        isCompleted: false
       }
     ])
 
@@ -42,6 +43,24 @@ export function App() {
   function handeTaskInvalid() {
     event.target.setCustomValidity('Esse campo e obrigatório')
   }
+
+  function changeTaskStatus(state) {
+    const todoListWithChangedTask = tasks.map(task => {
+      if (task.isCompleted === state) {
+        task.isCompleted = !task.isCompleted
+        return task
+      }
+      return task
+    })
+
+    console.log(todoListWithChangedTask)
+
+    setTask(todoListWithChangedTask)
+  }
+
+  const numberOfCompleted = tasks.filter(
+    task => task.isCompleted === true
+  ).length
 
   const countTasks = tasks.length
 
@@ -77,7 +96,8 @@ export function App() {
             <strong className={styles.purple}>
               Concluidas
               <span>
-                0 {tasks.length > 0 && 'de'} {tasks.length > 0 && countTasks}
+                {numberOfCompleted} {tasks.length > 0 && 'de'}{' '}
+                {tasks.length > 0 && countTasks}
               </span>
             </strong>
           </div>
@@ -90,7 +110,8 @@ export function App() {
                 content={task.value}
                 id={task.id}
                 onDeleteTask={deleteTask}
-                isCompleted={task.inChecked}
+                isChecked={task.isCompleted}
+                isCompleted={changeTaskStatus}
               />
             )
           })}
