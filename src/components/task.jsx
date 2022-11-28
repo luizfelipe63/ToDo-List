@@ -13,7 +13,7 @@ export function Task({ id, isCompleted, content, onDeleteTask }) {
   }
 
   function handleCheckedTask() {
-    isCompleted(checked)
+    isCompleted(id)
   }
 
   return (

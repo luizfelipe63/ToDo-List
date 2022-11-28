@@ -4,6 +4,7 @@ import { Task } from './components/task'
 
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 
 import { PlusCircle } from 'phosphor-react'
 import styles from './app.module.css'
@@ -20,7 +21,7 @@ export function App() {
       ...tasks,
       {
         id: uuidv4(),
-        value: newTaskText,
+        content: newTaskText,
         isCompleted: false
       }
     ])
@@ -46,14 +47,12 @@ export function App() {
 
   function changeTaskStatus(state) {
     const todoListWithChangedTask = tasks.map(task => {
-      if (task.isCompleted === state) {
+      if (task.id === state) {
         task.isCompleted = !task.isCompleted
         return task
       }
       return task
     })
-
-    console.log(todoListWithChangedTask)
 
     setTask(todoListWithChangedTask)
   }
@@ -107,10 +106,9 @@ export function App() {
             return (
               <Task
                 key={task.id}
-                content={task.value}
+                content={task.content}
                 id={task.id}
                 onDeleteTask={deleteTask}
-                isChecked={task.isCompleted}
                 isCompleted={changeTaskStatus}
               />
             )
