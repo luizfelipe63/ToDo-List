@@ -2,19 +2,27 @@ import { Header } from './components/header'
 import { InfoTask } from './components/infotask'
 import { Task } from './components/task'
 
-import { useState } from 'react'
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+
 
 import { PlusCircle } from 'phosphor-react'
 import styles from './app.module.css'
 import './global.css'
 
+
+interface taskesProps{
+  id:string,
+  content:string,
+  state:boolean
+}
+
+
 export function App() {
-  const [tasks, setTask] = useState([])
+  const [tasks, setTask] = useState(Array<taskesProps>)
   const [newTaskText, setNewTaskText] = useState('')
 
-  function handleCreatNewTask() {
+  function handleCreatNewTask(event:FormEvent) {
     event.preventDefault()
 
     setTask([
@@ -22,18 +30,19 @@ export function App() {
       {
         id: uuidv4(),
         content: newTaskText,
-        isCompleted: false
+        state: false
       }
     ])
 
     setNewTaskText('')
   }
 
-  function handleTextTask() {
+  function handleTextTask(event:ChangeEvent<HTMLInputElement>) {
+    event.target.setCustomValidity('')
     setNewTaskText(event.target.value)
   }
 
-  function deleteTask(taskToDelete) {
+  function deleteTask(taskToDelete:string) {
     const tasksWhithoutDeleteOne = tasks.filter(task => {
       return task.id != taskToDelete
     })
@@ -41,14 +50,14 @@ export function App() {
     setTask(tasksWhithoutDeleteOne)
   }
 
-  function handeTaskInvalid() {
+  function handeTaskInvalid(event:InvalidEvent<HTMLInputElement>) {
     event.target.setCustomValidity('Esse campo e obrigatório')
   }
 
-  function changeTaskStatus(state) {
+  function changeTaskStatus(state:string) {
     const todoListWithChangedTask = tasks.map(task => {
       if (task.id === state) {
-        task.isCompleted = !task.isCompleted
+        task.state = !task.state
         return task
       }
       return task
@@ -58,7 +67,7 @@ export function App() {
   }
 
   const numberOfCompleted = tasks.filter(
-    task => task.isCompleted === true
+    task => task.state === true
   ).length
 
   const countTasks = tasks.length
@@ -108,6 +117,7 @@ export function App() {
                 key={task.id}
                 content={task.content}
                 id={task.id}
+                isChecked={task.state}
                 onDeleteTask={deleteTask}
                 isCompleted={changeTaskStatus}
               />

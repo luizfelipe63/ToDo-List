@@ -3,10 +3,18 @@ import styles from './task.module.css'
 import * as Checkbox from '@radix-ui/react-checkbox'
 import { CheckIcon } from '@radix-ui/react-icons'
 import { Trash } from 'phosphor-react'
-import { useState } from 'react'
 
-export function Task({ id, isCompleted, content, onDeleteTask }) {
-  const [checked, setChecked] = useState(false)
+
+interface taskProps {
+  id:string,
+  content:string,
+  isChecked: boolean,
+  isCompleted: (task:string) => void,
+  onDeleteTask: (state:string) => void 
+}
+
+export function Task({ id, isCompleted, content, onDeleteTask, isChecked }:taskProps) {
+
 
   function handleDeleteTask() {
     onDeleteTask(id)
@@ -20,19 +28,15 @@ export function Task({ id, isCompleted, content, onDeleteTask }) {
     <div className={styles.task}>
       <div className={styles.taskBox}>
         <Checkbox.Root
-          onClick={handleCheckedTask}
-          onCheckedChange={setChecked}
+          onCheckedChange={handleCheckedTask}
           className={styles.CheckboxRoot}
         >
           <Checkbox.Indicator className={styles.CheckboxIndicator}>
-            {checked === true && <CheckIcon color="white" />}
+            <CheckIcon/>
           </Checkbox.Indicator>
         </Checkbox.Root>
-        <label
-          className={
-            checked == true ? styles.taskChecked : styles.taskNoChecked
-          }
-        >
+        <label className={isChecked == true ? styles.taskChecked : styles.taskNoChecked}>
+          
           {content}
         </label>
       </div>
