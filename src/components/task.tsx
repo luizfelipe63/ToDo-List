@@ -29,7 +29,7 @@ export function Task({ id, isCompleted, content, onDeleteTask, isChecked }:taskP
       <div className={styles.taskBox}>
         <Checkbox.Root
           onCheckedChange={handleCheckedTask}
-          className={styles.CheckboxRoot}
+          className={isChecked == true ? styles.UncheckedboxRoot : styles.CheckboxRoot }
         >
           <Checkbox.Indicator className={styles.CheckboxIndicator}>
             <CheckIcon/>
